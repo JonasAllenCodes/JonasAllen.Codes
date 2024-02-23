@@ -4,6 +4,9 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
 const { title } = Astro.props;
+
+const foregroundColor = "#00be00";
+const backgroundColor = "black"
 ---
 
 <html lang="en">
@@ -15,7 +18,7 @@ const { title } = Astro.props;
         <BaseHead title={title} />
 	</head>
 	<body>
-        <Header />
+        <Header css-vars={{ foregroundColor, backgroundColor }} />
         <main>
             { title != "Home" ? <h2>{title}</h2> : null }
             <slot />
@@ -24,6 +27,18 @@ const { title } = Astro.props;
 	</body>
 </html>
 
-<style is:global>
+<style is:global define:vars={{ foregroundColor, backgroundColor}}>
+	* {
+		padding: 0;
+		margin: 0;
+	}
+	body {
+		background-color: var(--backgroundColor);
+		color: var(--foregroundColor);
+	}
+
+	a {
+		color: white;
+	}
 
 </style>
