@@ -1,45 +1,13 @@
 ---
-import Picture from "astro/components/Picture.astro";
-import logoImage from "../images/jonasallen_codes-logo.gif";
+import Nav from "./Nav.astro";
+import Logo from "./Logo.astro";
 ---
 
 <header>
-    <h1>
-        <a href="/">
-            <Picture src={logoImage} alt="JonasAllen.Codes">
-        </a>
-    </h1>
-    <nav>
-        <ul>
-            <li class="nav-fill"></li>
-            <li><a href="/test/">Test Link</a></li>
-            <li><a href="/test/">Test Link</a></li>
-            <li><a href="/test/">Test Link</a></li>
-            <li><a href="/test/">Test Link</a></li>
-        </ul>
-    </nav>
+    <Logo />
+    <Nav />
 </header>
 
 <style>
-    header a {
-        text-decoration: none;
-    }
-    nav ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        padding-right: 1rem;
-        display: flex;
-        justify-content: flex-end;
-        gap: 1rem;
-    }
-    nav ul a {
-        font-size: 1.25rem;
-        font-weight: bold;
-    }
-    nav ul .nav-fill {
-        display:block;
-        flex-grow: 1;
-        border-bottom: solid;
-    }
+    
 </style>

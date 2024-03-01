@@ -1,0 +1,40 @@
+---
+import { Icon } from "astro-icon/components";
+
+const socialList = [
+    {
+        href: "https://www.facebook.com/JonasAllen.Codes/",
+        ariaLabel: "Facebook profile",
+        name: "fa6-brands:facebook"
+    },
+    {
+        href: "https://www.instagram.com/jonasallen.codes/",
+        ariaLabel: "Instagram profile",
+        name: "fa6-brands:instagram"
+    },
+    {
+        href: "https://twitter.com/Jonasallen89595",
+        ariaLabel: "X/Twitter profile",
+        name: "fa6-brands:x-twitter"
+    }
+];
+
+const iconSize = "3rem";
+---
+<div class="social-wrap">
+    {socialList.map(social => ((
+        <a href={social.href} aria-label={social.ariaLabel} target="_blank">
+            <Icon name={social.name} size={iconSize} />    
+        </a>
+    )))}
+</div>
+
+<style>
+    .social-wrap  {
+        padding: 1rem;
+        border-top: solid 2px;
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+    }
+</style>

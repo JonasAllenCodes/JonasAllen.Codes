@@ -1,0 +1,38 @@
+---
+const navList = [
+    {
+        title: "Test Link",
+        link: "/test/"
+    },
+    {
+        title: "Test Link",
+        link: "/test/"
+    },
+    {
+        title: "Test Link",
+        link: "/test/"
+    },
+    {
+        title: "Test Link",
+        link: "/test/"
+    }
+];
+---
+
+<nav>
+    <ul class="heading-wrap">
+        <li class="heading-fill"></li>
+        {navList.map(navItem => ((
+            <li><a class="heading-link" href={navItem.link}>{navItem.title}</a></li>
+        )))}
+</nav>
+
+<style>
+    nav .heading-wrap {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        padding-right: 1rem;
+        gap: 1rem;
+    }
+</style>

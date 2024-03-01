@@ -10,18 +10,12 @@ const backgroundColor = "black"
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-        <BaseHead title={title} />
-	</head>
+	<BaseHead title={title} />
 	<body>
-        <Header css-vars={{ foregroundColor, backgroundColor }} />
+        <Header css-vars={ foregroundColor } />
         <main>
-            { title != "Home" ? <h2>{title}</h2> : null }
-            <slot />
+            { title != "Home" ? <div class="heading-wrap"><h2>{title}</h2><span class="heading-fill"></span></div> : null }
+            <slot css-vars={ foregroundColor } />
         </main>
         <Footer />
 	</body>
@@ -32,13 +26,47 @@ const backgroundColor = "black"
 		padding: 0;
 		margin: 0;
 	}
+	a {
+		color: white;
+	}
+	h2 {
+		font-size: 2.5rem;
+	}
+	.visuallyhidden {
+		position: absolute;
+
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		border: 0;
+		padding: 0;
+
+		clip: rect(0 0 0 0);
+		overflow: hidden;
+	}
+	.heading-wrap {
+		display: flex;
+		gap: 0.3rem;
+		align-items: baseline;
+	}
+	.heading-fill {
+		background-color: var(--foregroundColor);
+		border: none;
+		content: "";
+		display: block;
+		flex-grow: 1;
+		height: 2px;
+	}
+	.heading-link {
+        text-decoration: none;
+        font-size: 1.25rem;
+        font-weight: bold;
+	}
 	body {
 		background-color: var(--backgroundColor);
 		color: var(--foregroundColor);
 	}
-
-	a {
-		color: white;
+	main {
+		padding: 1rem;
 	}
-
 </style>
