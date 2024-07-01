@@ -1,12 +1,15 @@
 ---
+import ContactForm from "../components/ContactForm.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BlogList from "../components/BlogList.astro";
+
+export const prerender = false;
 ---
 
 <BaseLayout title="Home">
-	<h2 class="visuallyhidden">Home</h2>
-	<h3 style="text-align: center;">Under Construction...</h3>
+	<h2 style="text-align: center;">Under Construction...</h2>
 	<p style="text-align: center;">Don't worry I'll be back better then ever! ;)</p>
+
+	<ContactForm />
 </BaseLayout>
 
 <style>
