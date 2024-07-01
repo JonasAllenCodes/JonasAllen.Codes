@@ -3,11 +3,15 @@ import Nav from "./Nav.astro";
 import Logo from "./Logo.astro";
 ---
 
-<header>
+<header class="header">
     <Logo />
     <Nav />
 </header>
 
 <style>
-    
+    .header {
+        width: 100%;
+        max-width: var(--page-width);
+        margin-inline: auto;
+    }
 </style>

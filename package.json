@@ -13,7 +13,8 @@
     "@astrojs/node": "^8.3.2",
     "@directus/sdk": "^16.1.0",
     "astro": "^4.11.3",
-    "astro-icon": "^1.1.0"
+    "astro-icon": "^1.1.0",
+    "normalize.css": "^8.0.1"
   },
   "devDependencies": {
     "@iconify-json/fa6-brands": "^1.1.18"

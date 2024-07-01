@@ -4,30 +4,42 @@ import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 
 const { title } = Astro.props;
-
-const foregroundColor = "#00be00";
-const backgroundColor = "black"
 ---
 
 <html lang="en">
 	<BaseHead title={title} />
 	<body>
-        <Header css-vars={ foregroundColor } />
-        <main>
-            { title != "Home" ? <div class="heading-wrap"><h2>{title}</h2><span class="heading-fill"></span></div> : null }
-            <slot css-vars={ foregroundColor } />
-        </main>
-        <Footer />
+        <div class="viewport">
+			<Header />
+			<main class="main">
+				{ title !== "Home" && 
+					<div class="heading-wrap">
+						<h2>{title}</h2>
+						<span class="heading-fill"></span>
+					</div>
+				}
+				<slot />
+			</main>
+			<Footer />
+		</div>
 	</body>
 </html>
 
-<style is:global define:vars={{ foregroundColor, backgroundColor}}>
+<style is:global>
+	:root {
+        --page-width: 1440px;
+        --content-width: 34rem;
+
+		--foreground-color: #00be00;
+		--background-color: black;
+		--cta-color: white;
+	}
 	* {
 		padding: 0;
 		margin: 0;
 	}
 	a {
-		color: white;
+		color: var(--cta-color);
 	}
 	h2 {
 		font-size: 2.5rem;
@@ -50,7 +62,7 @@ const backgroundColor = "black"
 		align-items: baseline;
 	}
 	.heading-fill {
-		background-color: var(--foregroundColor);
+		background-color: var(--foreground-color);
 		border: none;
 		content: "";
 		display: block;
@@ -63,10 +75,19 @@ const backgroundColor = "black"
         font-weight: bold;
 	}
 	body {
-		background-color: var(--backgroundColor);
-		color: var(--foregroundColor);
+		background-color: var(--background-color);
+		color: var(--foreground-color);
 	}
-	main {
+	.viewport {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+	.viewport .main {
+		max-width: var(--content-width);
+        margin-left: auto;
+        margin-right: auto;
 		padding: 1rem;
 	}
 </style>
