@@ -2,6 +2,8 @@
 import directus from "../lib/directus";
 import { createItem } from "@directus/sdk";
 
+export const prerender = false;
+
 let firstName = "";
 let lastName = "";
 let email = "";
@@ -15,7 +17,7 @@ const errors = {
     submission: "",
 }
 let successMessage = "";
-let formDisplay = "flex";
+let formDisplay = "block";
 
 if (Astro.request.method === "POST") {
     try {
@@ -80,38 +82,88 @@ if (Astro.request.method === "POST") {
 <form method="POST" aria-hidden={successMessage ? "true": "false"}>
     {errors.submission && <p>{errors.submission}</p>}
     {errors.username && <p>{errors.username}</p>}
-    <label class="hp-field">
-        Username:
-        <input type="text" name="username" autocomplete="off" />
-    </label>
-    <div>
-        <label>
-            First Name:
-            <input type="text" name="first-name" value={firstName} required />
-            {errors.firstName && <p>{errors.firstName}</p>}
-        </label>
-        <label>
-            Last Name:
-            <input type="text" name="last-name" value={lastName} required />
-            {errors.lastName && <p>{errors.lastName}</p>}
-        </label>
+
+    <div class="form-row hp-field">
+        <div class="input-data">
+            <label for="username">
+                Username: (If you are a human, do not fillout a Username.)
+            </label>
+            <input type="text" name="username" id="username" autocomplete="off" />
+        </div>
     </div>
-    <label>
-        Email:
-        <input type="email" name="email" value={email} required />
-        {errors.email && <p>{errors.email}</p>}
-    </label>
-    <label>
-        Message:
-        <textarea name="message" rows="8" cols="50">{message}</textarea>
-    </label>
-    <input type="submit" value="submit">
+
+    <div class="form-row">
+        <div class="input-data">
+            <label for="first-name">First Name:</label>
+            <input type="text" name="first-name" id="first-name" value={firstName} required />
+            <div class="underline"></div>
+            {errors.firstName && <p>{errors.firstName}</p>}
+        </div>
+        
+        <div class="input-data">
+            <label for="last-name">Last Name:</label>
+            <input type="text" name="last-name" id="last-name" value={lastName} required />
+            <div class="underline"></div>
+            {errors.lastName && <p>{errors.lastName}</p>}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="input-data">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" value={email} required />
+            <div class="underline"></div>
+            {errors.email && <p>{errors.email}</p>}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="input-data text-area">
+            <label for="message">Message:</label>
+            <textarea name="message" id="messages" rows="8" cols="80">{message}</textarea>
+            <br />
+            <div class="underline"></div>
+            <br />
+        </div>
+    </div>
+
+    <div class="form-row submit-btn">
+        <div class="input-data">
+            <input type="submit" value="submit">
+        </div>
+    </div>
 </form>
 
 <style define:vars={{ formDisplay }}>
     form {
         display: var(--formDisplay);
-        flex-direction: column;
+    }
+    form .form-row {
+        display: flex;
+        gap: 1rem;
+    }
+    form .form-row .input-data {
+        width: 100%;
+        padding: 1rem;
+    }
+    .form-row .input-data input,
+    .form-row .input-data textarea {
+        width: 100%;
+        color: var(--foreground-color);
+        background-color: transparent;
+        border: none;
+        border-bottom: 2px solid var(--foreground-color);
+    }
+    .form-row .input-data textarea {
+        border: 2px solid var(--foreground-color);
+    }
+    .submit-btn .input-data input {
+        color: var(--background-color);
+        background-color: var(--cta-color);
+        border: none;
+        line-height: 3rem;
+        text-transform: uppercase;
+        font-weight: 900;
     }
     .hp-field {
         opacity: 0;
