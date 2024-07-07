@@ -120,7 +120,7 @@ if (Astro.request.method === "POST") {
     <div class="form-row">
         <div class="input-data text-area">
             <label for="message">Message:</label>
-            <textarea name="message" id="messages" rows="8" cols="80">{message}</textarea>
+            <textarea name="message" id="message" rows="8" cols="80">{message}</textarea>
             <br />
             <div class="underline"></div>
             <br />
@@ -145,6 +145,13 @@ if (Astro.request.method === "POST") {
     form .form-row .input-data {
         width: 100%;
         padding: 1rem;
+    }
+    .form-row .input-data label {
+        display: inline-block;
+        width: 100%;
+    }
+    .form-row .text-area textarea {
+        margin-top: 1.5rem;
     }
     .form-row .input-data input,
     .form-row .input-data textarea {
@@ -173,5 +180,10 @@ if (Astro.request.method === "POST") {
         height: 0;
         width: 0;
         z-index: -1;
+    }
+    @media screen and (max-width: 500px) {
+        form .form-row {
+            flex-direction: column;
+        }
     }
 </style>
