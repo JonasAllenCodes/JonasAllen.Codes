@@ -80,8 +80,16 @@ if (Astro.request.method === "POST") {
 {successMessage && <p>{successMessage}</p>}
 
 <form method="POST" aria-hidden={successMessage ? "true": "false"}>
-    {errors.submission && <p>{errors.submission}</p>}
-    {errors.username && <p>{errors.username}</p>}
+    {errors.submission && 
+        <div class="error-message">
+            <p>{errors.submission}</p>
+        </div>
+    }
+    {errors.username &&
+        <div class="error-message">
+            <p>{errors.username}</p>
+        </div>
+    }
 
     <div class="form-row hp-field">
         <div class="input-data">
@@ -97,14 +105,22 @@ if (Astro.request.method === "POST") {
             <label for="first-name">First Name:</label>
             <input type="text" name="first-name" id="first-name" value={firstName} required />
             <div class="underline"></div>
-            {errors.firstName && <p>{errors.firstName}</p>}
+            {errors.firstName &&
+                <div class="error-message">
+                    <p>{errors.firstName}</p>
+                </div>
+            }
         </div>
         
         <div class="input-data">
             <label for="last-name">Last Name:</label>
             <input type="text" name="last-name" id="last-name" value={lastName} required />
             <div class="underline"></div>
-            {errors.lastName && <p>{errors.lastName}</p>}
+            {errors.lastName &&
+                <div class="error-message">
+                    <p>{errors.lastName}</p>
+                </div>
+            }
         </div>
     </div>
 
@@ -113,7 +129,11 @@ if (Astro.request.method === "POST") {
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" value={email} required />
             <div class="underline"></div>
-            {errors.email && <p>{errors.email}</p>}
+            {errors.email &&
+                <div class="error-message">
+                    <p>{errors.email}</p>
+                </div>
+            }
         </div>
     </div>
 
@@ -171,6 +191,13 @@ if (Astro.request.method === "POST") {
         line-height: 3rem;
         text-transform: uppercase;
         font-weight: 900;
+    }
+    .form-row .input-data .error-message {
+        padding: 0.05rem 0.25rem;
+        background-color: red;
+        color: var(--background-color);
+        font-weight: bold;
+        font-size: 1.3rem;
     }
     .hp-field {
         opacity: 0;
