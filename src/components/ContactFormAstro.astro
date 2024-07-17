@@ -158,6 +158,13 @@ if (Astro.request.method === "POST") {
     form {
         display: var(--formDisplay);
     }
+    form .error-message {
+        padding: 0.05rem 0.25rem;
+        background-color: red;
+        color: var(--background-color);
+        font-weight: bold;
+        font-size: 1.3rem;
+    }
     form .form-row {
         display: flex;
         gap: 1rem;
@@ -191,13 +198,6 @@ if (Astro.request.method === "POST") {
         line-height: 3rem;
         text-transform: uppercase;
         font-weight: 900;
-    }
-    .form-row .input-data .error-message {
-        padding: 0.05rem 0.25rem;
-        background-color: red;
-        color: var(--background-color);
-        font-weight: bold;
-        font-size: 1.3rem;
     }
     .hp-field {
         opacity: 0;

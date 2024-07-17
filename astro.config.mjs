@@ -7,11 +7,15 @@ import node from "@astrojs/node";
 export default defineConfig({
   integrations: [icon({
     include: {
-      "fa6-brands": ["facebook", "instagram", "x-twitter"]
+      "fa6-brands": ["facebook", "instagram", "x-twitter"],
+      "svg-spinners": ["bars-scale-fade"],
     }
   })],
   output: "hybrid",
   adapter: node({
     mode: "standalone"
-  })
+  }),
+  experimental: {
+    actions: true,
+  },
 });

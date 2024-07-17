@@ -1,8 +1,6 @@
 ---
-import ContactForm from "../components/ContactForm.astro";
+import ContactFormActions from "../components/ConntactFormActions.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-export const prerender = false;
 ---
 
 <BaseLayout title="Home">
@@ -12,7 +10,7 @@ export const prerender = false;
 	</div>
 	<p>Don't worry I'll be back better then ever! ;)</p>
 
-	<ContactForm />
+	<ContactFormActions />
 </BaseLayout>
 
 <style>
