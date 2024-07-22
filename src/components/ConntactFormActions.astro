@@ -5,13 +5,15 @@ import { Icon } from "astro-icon/components";
 export const prerender = false;
 ---
 
-<h2 id="form-headline">Contact Me</h2>
-
+<div class="heading-wrap">
+    <h2 id="form-headline">Contact Me</h2>
+    <span class="heading-fill"></span>
+</div>
 
 <form id="contact-form" method="POST">
     <noscript>
         <div class="error-message" style="display: block;">
-            Your browser has disabled JavaScript! In order to use this contact form you need JavaScript enabled.
+            <span class="bold-wide">Your browser has disabled JavaScript! In order to use this contact form you need JavaScript enabled.</span>
         </div>
     </noscript>
     <div class="error-message" id="headline-error-messages" />
@@ -103,14 +105,14 @@ export const prerender = false;
             formBtn.style.cursor = "pointer";
             formBtn.removeAttribute("disabled");
             formBtnIcon.style.display = "none";
-            formBtnText.style.display = "inline";
+            formBtnText.style.display = "inline-block";
         }
     }
 
     function headlineError(errorMessage) {
         const element = document.getElementById("headline-error-messages");
 
-        element.innerHTML = `<p>${errorMessage}</p>`;
+        element.innerHTML = `<span class="bold-wide">${errorMessage}</span>`;
         element.style.display = "block";
     }
 
@@ -118,7 +120,7 @@ export const prerender = false;
         const element = document.getElementById(idSelector);
 
         if (status) {
-            element.innerHTML = `<p>${errorMessage}</p>`;
+            element.innerHTML = `<span class="bold-wide">${errorMessage}</span>`;
             element.style.display = "block";
         } else {
             element.innerHTML = "";
@@ -155,8 +157,8 @@ export const prerender = false;
                 message 
             } = error.fields;
 
-            username && headlineError(username, true);
-            status && headlineError(status, true);
+            username && headlineError(username);
+            status && headlineError(status);
             firstName 
                 ? inputError("first-name-error", firstName, true) 
                 : inputError("first-name-error");
@@ -190,7 +192,7 @@ export const prerender = false;
         background-color: red;
         color: var(--background-color);
         font-weight: bold;
-        font-size: 1.3rem;
+        /* font-size: 1.3rem; */
     }
     form .form-row {
         display: flex;
@@ -230,6 +232,12 @@ export const prerender = false;
     }
     .submit-btn button #contact-btn-icon {
         display: none;
+    }
+    .submit-btn button #contact-btn-text {
+        vertical-align: top;
+        display: inline-block;
+        transform: scaleX(1.6);
+        transform-origin: right center;
     }
     .hp-field {
         opacity: 0;

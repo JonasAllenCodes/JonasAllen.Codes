@@ -11,7 +11,7 @@ const navList = [
     <ul class="heading-wrap">
         <li class="heading-fill"></li>
         {navList.map(navItem => ((
-            <li><a class="heading-link" href={navItem.link}>{navItem.title}</a></li>
+            <li><a class="heading-link" href={navItem.link}><span class="bold-wide">{navItem.title}</span></a></li>
         )))}
 </nav>
 
@@ -21,6 +21,13 @@ const navList = [
         margin: 0;
         padding: 0;
         padding-right: 1rem;
-        gap: 1rem;
+        gap: calc(1rem * 1.8);
+    }
+    nav .heading-wrap .bold-wide {
+        vertical-align: top;
+        /* letter-spacing: 2px; */
+        display: inline-block;
+        transform: scaleX(1.7);
+        transform-origin: right center;
     }
 </style>
