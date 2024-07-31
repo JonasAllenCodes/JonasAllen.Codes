@@ -18,4 +18,11 @@ export default defineConfig({
   experimental: {
     actions: true,
   },
+  image: {
+    domains: [
+      "directus-jonasallencodes.stage.jonasallen.cloud",
+      "directus-jonasallencodes.prod.jonasallen.cloud",
+    ],
+    remotePatterns: [{ protocol: "https" }],
+  },
 });

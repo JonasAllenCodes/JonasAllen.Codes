@@ -1,16 +1,18 @@
 ---
-import ContactFormActions from "../components/ConntactFormActions.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactFormActions from "@components/ConntactFormActions.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Home">
-	<div class="heading-wrap">
-		<h2>Under Construction</h2>
-		<span class="heading-fill"></span>
-	</div>
-	<p>Don't worry I'll be back better then ever! ;)</p>
-
-	<ContactFormActions />
+	<main class="main">
+		<div class="heading-wrap">
+			<h2>Under Construction</h2>
+			<span class="heading-fill"></span>
+		</div>
+		
+		<p>Don't worry I'll be back better then ever! ;)</p>
+		<ContactFormActions />
+	</main>
 </BaseLayout>
 
 <style>

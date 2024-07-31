@@ -1,0 +1,98 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { readItems } from '@directus/sdk';
+import directus from '@lib/directus';
+import type { InferGetStaticPropsType } from 'astro';
+import ListTags from '@components-ui/TagList.astro';
+import getReadingTime from "@lib/getReadingTime";
+import { Picture } from 'astro:assets';
+
+export async function getStaticPaths() {
+    const posts = await directus.request(readItems("posts", {
+        fields: ["*", {
+            featured_image: ["id", "title", "description"],
+        }],
+        filter: {
+            status: {
+                _eq: "published",
+            },
+        },
+    }));
+
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: post,
+    }));
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const directusURL = import.meta.env.DIRECTUS_URL;
+const post = Astro.props;
+const dateOptions: object = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+};
+const formattedPublishedDate = new Date(post.publish_date).toLocaleDateString("en-US", dateOptions);
+const featuredImage = post.featured_image;
+const featuredImageSrc = 
+    `${directusURL}/assets/${featuredImage.id}/${post.slug}.jpg?width=500&quality=70&format=auto`;
+---
+
+<BaseLayout title={post.title}>
+    <article class="main">
+        <hgroup>
+        <div class="heading-wrap">
+            <h1 class="title">{post.title}</h1>
+            <span class="heading-fill"></span>
+        </div>
+
+        <p>
+            Written by Jonas Allen 
+            | Published on {post.publish_date && formattedPublishedDate} 
+            | {getReadingTime(post.content).text}
+        </p>
+
+            <ListTags tags={post.tags} />
+
+            {
+                post.featured_image &&
+                    <Picture
+                        src={featuredImageSrc}
+                        inferSize
+                        formats={["avif", "webp"]}
+                        alt={
+                            featuredImage.description 
+                                ? featuredImage.description 
+                                : ""
+                        }
+                    />
+            }
+
+            {post.subtitle && <h2 class="subtitle">post.subtitle</h2>}
+        </hgroup>
+
+        <hr />
+
+        <Fragment set:html={post.content} />
+
+        <hr />
+
+        <ListTags tags={post.tags} />
+    </article>
+</BaseLayout>
+
+<style>
+    .tag-list {
+        display: flex;
+        gap: 1rem;
+        padding: 0;
+        list-style: none;
+    }
+    .tag-item {
+        padding-inline: 0.5rem;
+        color: var(--background-color);
+        background-color: var(--foreground-color);
+    }
+</style>

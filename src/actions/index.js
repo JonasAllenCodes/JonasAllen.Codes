@@ -1,6 +1,6 @@
 import { defineAction, z } from "astro:actions";
 
-import directus from "../lib/directus";
+import directus from "@lib/directus";
 import { createItem } from "@directus/sdk";
 
 export const server = {
