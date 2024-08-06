@@ -429,9 +429,55 @@ export type CustomDirectusTypes = {
   posts: Posts[];
 };
 
+type CreateArrayWithLengthX<
+    LENGTH extends number,
+    ACC extends unknown[] = [],
+> = ACC['length'] extends LENGTH
+    ? ACC
+    : CreateArrayWithLengthX<LENGTH, [...ACC,1]>
+
+type NumericRange<
+   START_ARR extends number[], 
+   END extends number, 
+   ACC extends number=never>
+=START_ARR['length'] extends END 
+   ? ACC | END
+   : NumericRange<[...START_ARR,1], END, ACC | START_ARR['length']>
+
+const directusURL = import.meta.env.DIRECTUS_URL;
 const directus =
-    createDirectus<CustomDirectusTypes>(import.meta.env.DIRECTUS_URL)
+    createDirectus<CustomDirectusTypes>(directusURL)
         .with(staticToken(import.meta.env.DIRECTUS_STATIC_TOKEN))
         .with(rest());
 
 export default directus;
+// queryFormat takes {key: "value"}
+export function directusFileSrc(
+  fileID: string,
+  fileName: string,
+  queryParams?: {
+    fit?: "cover" | "contain" | "inside" | "outside" | null,
+    width?: number | null,
+    height?: number | null,
+    quality?: NumericRange<CreateArrayWithLengthX<1>,100> | null,
+    withoutEnlargement?: boolean | null,
+    format?: "auto" | "jpg" | "png" | "webp" | "tiff" | "auto" | null,
+  }
+): string {
+  // Need to figure out how to setup proper TypeScript for queryEntries
+  const queryEntries: any = Object.entries(queryParams);
+  const queryFormat = new URLSearchParams(queryEntries);
+  return `${directusURL}/assets/${fileID}/${fileName}.jpg${
+    queryFormat && "?" + queryFormat
+  }`;
+}
+
+export function directusFileSrcOld(
+  fileID: string,
+  fileName: string,
+  queryParams?: string[]
+): string {
+  const queryFormat = `?${queryParams.join("&")}`;
+  
+  return `${directusURL}/assets/${fileID}/${fileName}.jpg${queryFormat}`;
+}

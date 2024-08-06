@@ -1,12 +1,18 @@
 ---
+interface Props {
+    tags?: string[],
+}
+
 const { tags } = Astro.props;
 ---
 
-<ul class="tag-list">
-    {tags.map((tag) => (
-        <li class="tag-item">{tag}</li>
-    ))}
-</ul>
+{tags &&
+    <ul class="tag-list">
+        {tags.map((tag) => (
+            <li class="tag-item">{tag}</li>
+        ))}
+    </ul>
+}
 
 <style>
     .tag-list {

@@ -1,0 +1,112 @@
+---
+import { readItems } from "@directus/sdk"
+import BaseLayout from "@layouts/BaseLayout.astro";
+import directus, { directusFileSrc } from "@lib/directus"
+import { Picture } from "astro:assets";
+
+const posts = await directus.request(readItems("posts", {
+    fields: [
+        "title",
+        "slug",
+        "publish_date",
+        "summary",
+        { featured_image: ["id", "description"] }
+    ],
+    filter: {
+        status: {
+            _eq: "published",
+        },
+    },
+    sort: ["-publish_date"],
+}));
+const title = "Blog Posts";
+
+function formattedPublishDate(publishDate) {
+    return new Date(publishDate).toLocaleDateString("en-US");
+}
+---
+
+<BaseLayout title={title}>
+    <main class="main">
+        <div class="heading-wrap">
+            <h1>{title}</h1>
+            <span class="heading-fill"></span>
+        </div>
+
+        <ul class="posts-list">
+            {posts.map((post) => (
+                <li class="posts-list-item">
+                    {post.featured_image &&
+                        <a href=`/blog/posts/${post.slug}`>
+                            <Picture
+                                src={directusFileSrc(
+                                    post.featured_image.id,
+                                    post.title,
+                                    {width: 500, quality: 70, format: "auto"}
+                                )}
+                                inferSize
+                                alt={
+                                    post.featured_image.description
+                                    ? post.featured_image.description
+                                    : ""
+                                }
+                            />
+                        </a>
+                    }
+
+                    <div class="post-info">
+                        <a class="post-title-link" href=`/blog/posts/${post.slug}`>
+                            <h2 class="post-title">{post.title}</h2>
+                        </a>
+
+                        <p class="post-publish-date">
+                            {formattedPublishDate(post.publish_date)}
+                        </p>
+
+                        <p class="post-summary">
+                            {post.summary}
+
+                            <br />
+
+                            <a  href=`/blog/posts/${post.slug}`>Read More</a>
+                        </p>
+                    </div>
+                </li>
+
+                <hr class="post-break" />
+            ))}
+        </ul>
+    </main>
+</BaseLayout>
+
+<style>
+    .main .posts-list {
+        padding-left: 0;
+    }
+    .main .posts-list .posts-list-item {
+        display: flex;
+        align-items: stretch;
+        gap: 0.5rem;
+        list-style: none;
+    }
+    .posts-list .posts-list-item .post-title-link {
+        text-decoration: none;
+    }
+    .posts-list-item .post-title-link .post-title {
+        margin-block-start: 0rem;
+        margin-block-end: 0.25rem;
+    }
+    .posts-list .posts-list-item p {
+        margin-block-start: 0.25rem;
+        margin-block-end: 0.25rem;
+    }
+    .posts-list .posts-list-item .post-publish-date {
+        font-style: italic;
+    }
+    .posts-list .posts-list-item .post-summary {
+        margin-block-end: 0rem;
+    }
+    .main .posts-list .post-break:last-child {
+        display: none;
+    }
+</style>
