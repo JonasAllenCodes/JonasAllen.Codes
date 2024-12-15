@@ -20,6 +20,8 @@
   },
   "devDependencies": {
     "@iconify-json/fa6-brands": "^1.1.18",
-    "@iconify-json/svg-spinners": "^1.1.2"
+    "@iconify-json/svg-spinners": "^1.1.2",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1"
   }
 }
