@@ -1,6 +1,6 @@
-import removeHTML from "./removeHTML";
-import readingTime from "reading-time";
+import removeHTML from './removeHTML'
+import readingTime from 'reading-time'
 
 export default function (content) {
-    return readingTime(removeHTML(content));
+  return readingTime(removeHTML(content))
 }

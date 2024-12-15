@@ -1,24 +1,24 @@
 ---
-import { Picture } from "astro:assets";
-import logoImage from "@images/jonasallencodes-logo.png";
+import {Picture} from 'astro:assets'
+import logoImage from '@images/jonasallencodes-logo.png'
 
 interface Props {
-    title?: string;
+  title?: string
 }
 
-const { title } = Astro.props;
-const ariaHiddenLogo = (title === "Home")
+const {title} = Astro.props
+const ariaHiddenLogo = title === 'Home'
 ---
 
-{title === "Home" &&
+{
+  title === 'Home' && (
     <h1 aria-hidden="false" style="display: none;">
-        JonasAllen.Codes
+      JonasAllen.Codes
     </h1>
+  )
 }
 <a href="/" aria-hidden={ariaHiddenLogo}>
-    <Picture src={logoImage} alt="JonasAllen.Codes">
-</a>
+  <Picture src={logoImage} alt="JonasAllen.Codes" />
 
-<style>
-
-</style>
+  <style></style></a
+>

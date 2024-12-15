@@ -1,256 +1,261 @@
 ---
-import { actions, getActionProps } from "astro:actions";
-import { Icon } from "astro-icon/components";
+import {actions, getActionProps} from 'astro:actions'
+import {Icon} from 'astro-icon/components'
 
-export const prerender = false;
+export const prerender = false
 ---
 
 <div class="heading-wrap">
-    <h2 id="form-headline">Contact Me</h2>
-    <span class="heading-fill"></span>
+  <h2 id="form-headline">Contact Me</h2>
+  <span class="heading-fill"></span>
 </div>
 
 <form id="contact-form" method="POST">
-    <noscript>
-        <div class="error-message" style="display: block;">
-            <span class="bold-wide">Your browser has disabled JavaScript! In order to use this contact form you need JavaScript enabled.</span>
-        </div>
-    </noscript>
-    <div class="error-message" id="headline-error-messages" />
-    <div class="form-row hp-field">
-        <div class="input-data">
-            <input {...getActionProps(actions.contactForm)} />
-        </div>
+  <noscript>
+    <div class="error-message" style="display: block;">
+      <span class="bold-wide"
+        >Your browser has disabled JavaScript! In order to use this contact form
+        you need JavaScript enabled.</span
+      >
     </div>
-    <div class="form-row hp-field">
-        <div class="input-data">
-            <label for="username">
-                Username: (If you are a human, do not fillout a Username.)
-            </label>
-            <input type="text" name="username" id="username" autocomplete="off" />
-        </div>
+  </noscript>
+  <div class="error-message" id="headline-error-messages"></div>
+  <div class="form-row hp-field">
+    <div class="input-data">
+      <input {...getActionProps(actions.contactForm)} />
+    </div>
+  </div>
+  <div class="form-row hp-field">
+    <div class="input-data">
+      <label for="username">
+        Username: (If you are a human, do not fillout a Username.)
+      </label>
+      <input type="text" name="username" id="username" autocomplete="off" />
+    </div>
+  </div>
+
+  <div class="form-row hp-field" aria-hidden="true">
+    <div class="input-data">
+      <label for="status"> Status: </label>
+      <input
+        type="text"
+        name="status"
+        id="status"
+        autocomplete="off"
+        value="open"
+      />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="input-data">
+      <label for="firstName">First Name:</label>
+      <input type="text" name="firstName" id="firstName" />
+      <div class="underline"></div>
+      <div class="error-message" id="first-name-error"></div>
     </div>
 
-    <div class="form-row hp-field" aria-hidden="true">
-        <div class="input-data">
-            <label for="status">
-                Status:
-            </label>
-            <input type="text" name="status" id="status" autocomplete="off" value="open" />
-        </div> 
+    <div class="input-data">
+      <label for="lastName">Last Name:</label>
+      <input type="text" name="lastName" id="lastName" />
+      <div class="underline"></div>
+      <div class="error-message" id="last-name-error"></div>
     </div>
+  </div>
 
-    <div class="form-row">
-        <div class="input-data">
-            <label for="firstName">First Name:</label>
-            <input type="text" name="firstName" id="firstName" />
-            <div class="underline"></div>
-            <div class="error-message" id="first-name-error" />
-        </div>
-        
-        <div class="input-data">
-            <label for="lastName">Last Name:</label>
-            <input type="text" name="lastName" id="lastName" />
-            <div class="underline"></div>
-            <div class="error-message" id="last-name-error" />
-        </div>
+  <div class="form-row">
+    <div class="input-data">
+      <label for="email">Email:</label>
+      <input type="text" name="email" id="email" value="" />
+      <div class="underline"></div>
+      <div class="error-message" id="email-error"></div>
     </div>
+  </div>
 
-    <div class="form-row">
-        <div class="input-data">
-            <label for="email">Email:</label>
-            <input type="text" name="email" id="email" value="" />
-            <div class="underline"></div>
-            <div class="error-message" id="email-error" />
-        </div>
+  <div class="form-row">
+    <div class="input-data text-area">
+      <label for="message">Message:</label>
+      <textarea name="message" id="message" rows="8" cols="80"></textarea>
+      <br />
+      <div class="underline"></div>
+      <br />
     </div>
+  </div>
 
-    <div class="form-row">
-        <div class="input-data text-area">
-            <label for="message">Message:</label>
-            <textarea name="message" id="message" rows="8" cols="80"></textarea>
-            <br />
-            <div class="underline"></div>
-            <br />
-        </div>
+  <div class="form-row submit-btn">
+    <div class="input-data">
+      <button id="contact-btn" type="submit">
+        <Icon id="contact-btn-icon" name="svg-spinners:bars-scale-fade" />
+        <span id="contact-btn-text">Submit</span>
+      </button>
     </div>
-
-    <div class="form-row submit-btn">
-        <div class="input-data">
-            <button id="contact-btn" type="submit">
-                <Icon id="contact-btn-icon" name="svg-spinners:bars-scale-fade" /> <span id="contact-btn-text">Submit</span>
-            </button>
-        </div>
-    </div>
+  </div>
 </form>
 
 <script>
-    import { actions, isInputError } from "astro:actions";
+  import {actions, isInputError} from 'astro:actions'
 
-    const formHeadline = document.getElementById("form-headline") as HTMLHeadingElement;
-    const form = document.getElementById("contact-form") as HTMLFormElement;
-    const formBtn = document.getElementById("contact-btn") as HTMLButtonElement;
-    const formBtnIcon = document.getElementById("contact-btn-icon");
-    const formBtnText = document.getElementById("contact-btn-text") as HTMLSpanElement;
+  const formHeadline = document.getElementById(
+    'form-headline',
+  ) as HTMLHeadingElement
+  const form = document.getElementById('contact-form') as HTMLFormElement
+  const formBtn = document.getElementById('contact-btn') as HTMLButtonElement
+  const formBtnIcon = document.getElementById('contact-btn-icon')
+  const formBtnText = document.getElementById(
+    'contact-btn-text',
+  ) as HTMLSpanElement
 
-    function formLoading(status) {
-        if (status) {
-            form.style.cursor = "progress";
-            formBtn.style.cursor = "progress";
-            formBtn.setAttribute("disabled", "");
-            formBtnIcon.style.display = "inline";
-            formBtnText.style.display = "none";
-        } else {
-            form.style.cursor = "auto";
-            formBtn.style.cursor = "pointer";
-            formBtn.removeAttribute("disabled");
-            formBtnIcon.style.display = "none";
-            formBtnText.style.display = "inline-block";
-        }
+  function formLoading(status) {
+    if (status) {
+      form.style.cursor = 'progress'
+      formBtn.style.cursor = 'progress'
+      formBtn.setAttribute('disabled', '')
+      formBtnIcon.style.display = 'inline'
+      formBtnText.style.display = 'none'
+    } else {
+      form.style.cursor = 'auto'
+      formBtn.style.cursor = 'pointer'
+      formBtn.removeAttribute('disabled')
+      formBtnIcon.style.display = 'none'
+      formBtnText.style.display = 'inline-block'
+    }
+  }
+
+  function headlineError(errorMessage) {
+    const element = document.getElementById('headline-error-messages')
+
+    element.innerHTML = `<span class="bold-wide">${errorMessage}</span>`
+    element.style.display = 'block'
+  }
+
+  function inputError(idSelector, errorMessage?, status?) {
+    const element = document.getElementById(idSelector)
+
+    if (status) {
+      element.innerHTML = `<span class="bold-wide">${errorMessage}</span>`
+      element.style.display = 'block'
+    } else {
+      element.innerHTML = ''
+      element.style.display = 'none'
+    }
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    formLoading(true)
+
+    const formData = new FormData(form)
+
+    const {data, error} = await actions.contactForm.safe(formData)
+
+    if (data) {
+      formLoading(false)
+      form.reset()
+      formHeadline.innerText = 'Contact Form Submission Successful'
+      form.innerHTML =
+        "Your message has been successfully sent! I'll get back to you as soon as possible. Thank you for reahing out to me!"
+      console.log(data)
     }
 
-    function headlineError(errorMessage) {
-        const element = document.getElementById("headline-error-messages");
+    if (error && isInputError(error)) {
+      formLoading(false)
+      console.log(error.fields)
 
-        element.innerHTML = `<span class="bold-wide">${errorMessage}</span>`;
-        element.style.display = "block";
+      const {username, status, firstName, lastName, email, message} =
+        error.fields
+
+      username && headlineError(username)
+      status && headlineError(status)
+      firstName
+        ? inputError('first-name-error', firstName, true)
+        : inputError('first-name-error')
+      lastName
+        ? inputError('last-name-error', lastName, true)
+        : inputError('last-name-error')
+      email ? inputError('email-error', email, true) : inputError('email-error')
+      message
+        ? inputError('message-error', message, true)
+        : inputError('message-error')
     }
+    if (error && !isInputError(error)) {
+      formLoading(false)
 
-    function inputError(idSelector, errorMessage?, status?) {
-        const element = document.getElementById(idSelector);
-
-        if (status) {
-            element.innerHTML = `<span class="bold-wide">${errorMessage}</span>`;
-            element.style.display = "block";
-        } else {
-            element.innerHTML = "";
-            element.style.display = "none";
-        }
+      headlineError(
+        'There has been an error submitting your response. Please check your internet connection. If your interconnection seems fine try submitting from another browser or device. If problem persists you may need to try at another time.',
+      )
     }
-
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        formLoading(true);
-
-        const formData = new FormData(form);
-
-        const { data, error } = await actions.contactForm.safe(formData);
-
-        if (data) {
-            formLoading(false);
-            form.reset();
-            formHeadline.innerText = "Contact Form Submission Successful";
-            form.innerHTML = "Your message has been successfully sent! I'll get back to you as soon as possible. Thank you for reahing out to me!"
-            console.log(data);
-        }
-
-        if (error && isInputError(error)) {
-            formLoading(false);
-            console.log(error.fields);
-            
-            const {
-                username,
-                status,
-                firstName,
-                lastName,
-                email,
-                message 
-            } = error.fields;
-
-            username && headlineError(username);
-            status && headlineError(status);
-            firstName 
-                ? inputError("first-name-error", firstName, true) 
-                : inputError("first-name-error");
-            lastName 
-                ? inputError("last-name-error", lastName, true) 
-                : inputError("last-name-error");
-            email 
-                ? inputError("email-error", email, true) 
-                : inputError("email-error");
-            message 
-                ? inputError("message-error", message, true) 
-                : inputError("message-error");
-        }
-        if (error && !isInputError(error)) {
-            formLoading(false);
-
-            headlineError(
-                "There has been an error submitting your response. Please check your internet connection. If your interconnection seems fine try submitting from another browser or device. If problem persists you may need to try at another time."
-            );
-        }
-    })
+  })
 </script>
 
 <style>
-    form {
-        display: var(--formDisplay);
-    }
-    form .error-message {
-        display: none;
-        padding: 0.05rem 0.25rem;
-        background-color: red;
-        color: var(--background-color);
-        font-weight: bold;
-        /* font-size: 1.3rem; */
-    }
+  form {
+    display: var(--formDisplay);
+  }
+  form .error-message {
+    display: none;
+    padding: 0.05rem 0.25rem;
+    background-color: red;
+    color: var(--background-color);
+    font-weight: bold;
+    /* font-size: 1.3rem; */
+  }
+  form .form-row {
+    display: flex;
+    gap: 1rem;
+  }
+  form .form-row .input-data {
+    width: 100%;
+    padding: 1rem;
+  }
+  .form-row .input-data label {
+    display: inline-block;
+    width: 100%;
+  }
+  .form-row .text-area textarea {
+    margin-top: 1.5rem;
+  }
+  .form-row .input-data input,
+  .form-row .input-data textarea,
+  .form-row .input-data button {
+    width: 100%;
+    color: var(--foreground-color);
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--foreground-color);
+  }
+  .form-row .input-data textarea {
+    border: 2px solid var(--foreground-color);
+  }
+  .submit-btn .input-data button {
+    cursor: pointer;
+    color: var(--background-color);
+    background-color: var(--cta-color);
+    border: none;
+    line-height: 3rem;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+  .submit-btn button #contact-btn-icon {
+    display: none;
+  }
+  .submit-btn button #contact-btn-text {
+    vertical-align: top;
+    display: inline-block;
+    transform: scaleX(1.6);
+    transform-origin: right center;
+  }
+  .hp-field {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 0;
+    z-index: -1;
+  }
+  @media screen and (max-width: 500px) {
     form .form-row {
-        display: flex;
-        gap: 1rem;
+      flex-direction: column;
     }
-    form .form-row .input-data {
-        width: 100%;
-        padding: 1rem;
-    }
-    .form-row .input-data label {
-        display: inline-block;
-        width: 100%;
-    }
-    .form-row .text-area textarea {
-        margin-top: 1.5rem;
-    }
-    .form-row .input-data input,
-    .form-row .input-data textarea,
-    .form-row .input-data button {
-        width: 100%;
-        color: var(--foreground-color);
-        background-color: transparent;
-        border: none;
-        border-bottom: 2px solid var(--foreground-color);
-    }
-    .form-row .input-data textarea {
-        border: 2px solid var(--foreground-color);
-    }
-    .submit-btn .input-data button {
-        cursor: pointer;
-        color: var(--background-color);
-        background-color: var(--cta-color);
-        border: none;
-        line-height: 3rem;
-        text-transform: uppercase;
-        font-weight: 900;
-    }
-    .submit-btn button #contact-btn-icon {
-        display: none;
-    }
-    .submit-btn button #contact-btn-text {
-        vertical-align: top;
-        display: inline-block;
-        transform: scaleX(1.6);
-        transform-origin: right center;
-    }
-    .hp-field {
-        opacity: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 0;
-        width: 0;
-        z-index: -1;
-    }
-    @media screen and (max-width: 500px) {
-        form .form-row {
-            flex-direction: column;
-        }
-    }
+  }
 </style>

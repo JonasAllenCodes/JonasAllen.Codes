@@ -1,23 +1,23 @@
 ---
-import Nav from "./Nav.astro";
-import Logo from "./Logo.astro";
+import Nav from './Nav.astro'
+import Logo from './Logo.astro'
 
 interface Props {
-    title?: string;
+  title?: string
 }
 
-const { title } = Astro.props;
+const {title} = Astro.props
 ---
 
 <header class="header">
-    <Logo title={title} />
-    <Nav />
+  <Logo title={title} />
+  <Nav />
 </header>
 
 <style>
-    .header {
-        width: 100%;
-        max-width: var(--page-width);
-        margin-inline: auto;
-    }
+  .header {
+    width: 100%;
+    max-width: var(--page-width);
+    margin-inline: auto;
+  }
 </style>

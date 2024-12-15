@@ -1,53 +1,53 @@
 ---
-import "normalize.css/normalize.css";
-import { AstroFont } from "astro-font";
+import 'normalize.css/normalize.css'
+import {AstroFont} from 'astro-font'
 
-const { title } = Astro.props;
+const {title} = Astro.props
 ---
 
-
 <head>
-    <meta charset="utf-8" />
-    <AstroFont
-        config={[
-            {
-                name: "Tenso",
-                src: [
-                    {
-                        style: "bold",
-                        weight: "700",
-                        path: "./fonts/Tenso-Bold.woff2",
-                    },
-                ],
-                preload: true,
-                display: "swap",
-                fallback: "sans-serif",
-                cssVariable: "tenso-bold-font"
-            },
-            {
-                name: "VT323",
-                src: [
-                    {
-                        style: "normal",
-                        weight: "400",
-                        path: "https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isfFJU.woff2"
-                    },
-                ],
-                preload: true,
-                display: "swap",
-                selector: "body",
-                fallback: "monospace",
-            },
-        ]}
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>
-        {title !== "Home" && `${title} - `} JonasAllen.Codes
-    </title>
+  <meta charset="utf-8" />
+  <AstroFont
+    config={[
+      {
+        name: 'Tenso',
+        src: [
+          {
+            style: 'bold',
+            weight: '700',
+            path: './fonts/Tenso-Bold.woff2',
+          },
+        ],
+        preload: true,
+        display: 'swap',
+        fallback: 'sans-serif',
+        cssVariable: 'tenso-bold-font',
+      },
+      {
+        name: 'VT323',
+        src: [
+          {
+            style: 'normal',
+            weight: '400',
+            path: 'https://fonts.gstatic.com/s/vt323/v17/pxiKyp0ihIEF2isfFJU.woff2',
+          },
+        ],
+        preload: true,
+        display: 'swap',
+        selector: 'body',
+        fallback: 'monospace',
+      },
+    ]}
+    <link
+    rel="icon"
+    type="image/png"
+    href="/favicon.png"
+  />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <title>
+    {title !== 'Home' && `${title} - `} JonasAllen.Codes
+  </title>
 </head>
 
-
-<style>
-
-</style>
+<style></style>

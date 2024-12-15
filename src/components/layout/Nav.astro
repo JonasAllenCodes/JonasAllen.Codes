@@ -1,33 +1,40 @@
 ---
 const navList = [
-    {
-        title: "Home",
-        link: "/"
-    },
-];
+  {
+    title: 'Home',
+    link: '/',
+  },
+]
 ---
 
 <nav>
-    <ul class="heading-wrap">
-        <li class="heading-fill"></li>
-        {navList.map(navItem => ((
-            <li><a class="heading-link" href={navItem.link}><span class="bold-wide">{navItem.title}</span></a></li>
-        )))}
-</nav>
+  <ul class="heading-wrap">
+    <li class="heading-fill"></li>
+    {
+      navList.map((navItem) => (
+        <li>
+          <a class="heading-link" href={navItem.link}>
+            <span class="bold-wide">{navItem.title}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 
-<style>
+  <style>
     nav .heading-wrap {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        padding-right: 1rem;
-        gap: calc(1rem * 1.8);
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      padding-right: 1rem;
+      gap: calc(1rem * 1.8);
     }
     nav .heading-wrap .bold-wide {
-        vertical-align: top;
-        /* letter-spacing: 2px; */
-        display: inline-block;
-        transform: scaleX(1.7);
-        transform-origin: right center;
+      vertical-align: top;
+      /* letter-spacing: 2px; */
+      display: inline-block;
+      transform: scaleX(1.7);
+      transform-origin: right center;
     }
-</style>
+  </style>
+</nav>

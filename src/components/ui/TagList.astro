@@ -1,29 +1,31 @@
 ---
 interface Props {
-    tags?: string[],
+  tags?: string[]
 }
 
-const { tags } = Astro.props;
+const {tags} = Astro.props
 ---
 
-{tags &&
+{
+  tags && (
     <ul class="tag-list">
-        {tags.map((tag) => (
-            <li class="tag-item">{tag}</li>
-        ))}
+      {tags.map((tag) => (
+        <li class="tag-item">{tag}</li>
+      ))}
     </ul>
+  )
 }
 
 <style>
-    .tag-list {
-        display: flex;
-        gap: 1rem;
-        padding: 0;
-        list-style: none;
-    }
-    .tag-item {
-        padding-inline: 0.5rem;
-        color: var(--background-color);
-        background-color: var(--foreground-color);
-    }
+  .tag-list {
+    display: flex;
+    gap: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+  .tag-item {
+    padding-inline: 0.5rem;
+    color: var(--background-color);
+    background-color: var(--foreground-color);
+  }
 </style>
