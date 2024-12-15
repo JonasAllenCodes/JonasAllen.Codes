@@ -1,4 +1,5 @@
-import {defineAction, z} from 'astro:actions'
+import {defineAction} from 'astro:actions'
+import {z} from 'astro:schema'
 
 import directus from '@lib/directus'
 import {createItem} from '@directus/sdk'
@@ -11,7 +12,7 @@ export const server = {
         message:
           'There is has been an error with your submission. If you are using an auto-fill for this form, please disable the form auto-fill. Then refresh the page, while holding the shift key to clear the cache on this page. Thank you and my apologies for any inconveniences.',
       }),
-      status: z.literal('open'),
+      // status: z.literal('open'),
       firstName: z.string({
         message: 'First Name is required',
       }),
@@ -28,31 +29,24 @@ export const server = {
       message: z.string().optional(),
     }),
     handler: async (submission) => {
-      const {status, firstName, lastName, email, message} = submission
+      const {firstName, lastName, email, message} = submission
 
       try {
-        console.log(email)
-        const result = await directus.request(
+        await directus.request(
           createItem('contact_form', {
-            status: status,
+            // status: status,
             first_name: firstName,
             last_name: lastName,
             email: email,
             message: message,
           }),
         )
-
-        return result
-      } catch (error) {
-        console.log(email)
-        if (error instanceof Error) {
-          console.error(`${error.name}: ${error.message} \n\n${error.cause}`)
+      } catch (e) {
+        if (e instanceof Error) {
+          console.error('Error', code)
         }
       }
-
-      console.log(result)
-
-      return 'Thank you!'
+      return "Your message has been successfully sent! I'll get back to you as soon as possible. Thank you for reahing out to me!"
     },
   }),
 }

@@ -13,13 +13,10 @@ export default defineConfig({
       },
     }),
   ],
-  output: 'hybrid',
+  output: 'static',
   adapter: node({
     mode: 'standalone',
   }),
-  experimental: {
-    actions: true,
-  },
   image: {
     domains: [
       'directus-jonasallencodes.stage.jonasallen.cloud',

@@ -1,0 +1,171 @@
+---
+// export const prerender = false
+import {actions, isInputError} from 'astro:actions'
+import {ClientRouter} from 'astro:transitions'
+
+const result = Astro.getActionResult(actions.contactForm)
+const inputErrors = isInputError(result?.error) ? result.error.fields : {}
+
+// console.log(result)
+---
+
+<ClientRouter />
+
+<h2>Contact Me</h2>
+
+{
+  !result?.data && (
+    <form method="POST" action={actions.contactForm}>
+      {result?.error && <p class="error-message">Unable to send message.</p>}
+
+      <div class="form-row hp-field">
+        <div class="input-data">
+          <label for="username">
+            Username: (If you are a human, do not fill out a Username.)
+          </label>
+          <input type="text" name="username" id="username" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-data">
+          <label for="first-name">First Name:</label>
+          <input
+            type="text"
+            name="firstName"
+            id="first-name"
+            aria-describedby="first-name-error"
+            required
+            transition:persist
+          />
+          <div class="underline" />
+          {inputErrors.firstName && (
+            <p id="first-name-error" class="error-message">
+              {inputErrors.firstName.join(',')}
+            </p>
+          )}
+        </div>
+
+        <div class="input-data">
+          <label for="last-name">Last Name:</label>
+          <input
+            type="text"
+            name="lastName"
+            id="last-name"
+            aria-describedby="last-name-error"
+            required
+            transition:persist
+          />
+          <div class="underline" />
+          {inputErrors.lastName && (
+            <p id="last-name-error" class="error-message">
+              {inputErrors.lastName.join(',')}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-data">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            aria-describedby="email-error"
+            required
+            transition:persist
+          />
+          <div class="underline" />
+          {inputErrors.email && (
+            <p id="email-error" class="error-message">
+              {inputErrors.email.join(',')}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="input-data text-area">
+          <label for="message">Message:</label>
+          <textarea
+            name="message"
+            id="message"
+            rows="8"
+            cols="80"
+            transition:persist
+          />
+          <br />
+          <div class="underline" />
+          <br />
+        </div>
+      </div>
+
+      <div class="form-row submit-btn">
+        <div class="input-data">
+          <input type="submit" value="submit" />
+        </div>
+      </div>
+    </form>
+  )
+}
+
+{result && !result.error && <p class="success-message">{result.data}</p>}
+
+<style>
+  form .error-message {
+    padding: 0.05rem 0.25rem;
+    background-color: red;
+    color: var(--background-color);
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+  form .form-row {
+    display: flex;
+    gap: 1rem;
+  }
+  form .form-row .input-data {
+    width: 100%;
+    padding: 1rem;
+  }
+  .form-row .input-data label {
+    display: inline-block;
+    width: 100%;
+  }
+  .form-row .text-area textarea {
+    margin-top: 1.5rem;
+  }
+  .form-row .input-data input,
+  .form-row .input-data textarea {
+    width: 100%;
+    color: var(--foreground-color);
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--foreground-color);
+  }
+  .form-row .input-data textarea {
+    border: 2px solid var(--foreground-color);
+  }
+  .submit-btn .input-data input {
+    color: var(--background-color);
+    background-color: var(--cta-color);
+    border: none;
+    line-height: 3rem;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+  .hp-field {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 0;
+    z-index: -1;
+  }
+  @media screen and (max-width: 500px) {
+    form .form-row {
+      flex-direction: column;
+    }
+  }
+</style>
