@@ -12,7 +12,7 @@ export const server = {
         message:
           'There is has been an error with your submission. If you are using an auto-fill for this form, please disable the form auto-fill. Then refresh the page, while holding the shift key to clear the cache on this page. Thank you and my apologies for any inconveniences.',
       }),
-      // status: z.literal('open'),
+      status: z.literal('open'),
       firstName: z.string({
         message: 'First Name is required',
       }),
@@ -29,12 +29,12 @@ export const server = {
       message: z.string().optional(),
     }),
     handler: async (submission) => {
-      const {firstName, lastName, email, message} = submission
+      const {status, firstName, lastName, email, message} = submission
 
       try {
         await directus.request(
           createItem('contact_form', {
-            // status: status,
+            status: status,
             first_name: firstName,
             last_name: lastName,
             email: email,
