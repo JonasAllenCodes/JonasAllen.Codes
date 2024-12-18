@@ -26,18 +26,25 @@ export const server = {
         .email({
           message: 'Invalid email address (example@address.com)',
         }),
+      phone: z.null({
+        message:
+          'There is has been an error with your submission. If you are using an auto-fill for this form, please disable the form auto-fill. Then refresh the page, while holding the shift key to clear the cache on this page. Thank you and my apologies for any inconveniences.',
+      }),
       message: z.string().optional(),
     }),
     handler: async (submission) => {
-      const {status, firstName, lastName, email, message} = submission
+      const {username, status, firstName, lastName, email, phone, message} =
+        submission
 
       try {
         await directus.request(
           createItem('contact_form', {
+            username: username,
             status: status,
             first_name: firstName,
             last_name: lastName,
             email: email,
+            phone: phone,
             message: message,
           }),
         )

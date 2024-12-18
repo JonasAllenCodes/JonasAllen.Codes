@@ -17,13 +17,28 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {}
   !result?.data && (
     <form method="POST" action={actions.contactForm}>
       {result?.error && <p class="error-message">Unable to send message.</p>}
+      {inputErrors.username && (
+        <p id="username-error" class="error-message">
+          {inputErrors.username.join(',')}
+        </p>
+      )}
+      {inputErrors.phone && (
+        <p id="phone-error" class="error-message">
+          {inputErrors.phone.join(',')}
+        </p>
+      )}
 
-      <div class="form-row hp-field">
+      <div class="form-row hp-field" aria-hidden="true">
         <div class="input-data">
-          <label for="username">
-            Username: (If you are a human, do not fill out a Username.)
-          </label>
-          <input type="text" name="username" id="username" autocomplete="off" />
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            autocomplete="off"
+            style="display: none;"
+            transition:persist
+          />
         </div>
       </div>
 
@@ -36,6 +51,7 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {}
             id="status"
             autocomplete="off"
             value="open"
+            style="display: none;"
           />
         </div>
       </div>
@@ -95,6 +111,20 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {}
               {inputErrors.email.join(',')}
             </p>
           )}
+        </div>
+      </div>
+
+      <div class="form-row hp-field" aria-hidden="true">
+        <div class="input-data">
+          <label for="phone">Phone:</label>
+          <input
+            type="text"
+            name="phone"
+            id="phone"
+            autocomplete="off"
+            transition:persist
+            style="display: none;"
+          />
         </div>
       </div>
 
